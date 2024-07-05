@@ -1,5 +1,5 @@
-from basic_config.config_reader import load_config, save_config_dict
-from palxfel.setting import ExperimentConfiguration
+from ..basic_config.config_reader import load_config, save_config_dict
+from ..palxfel.setting import ExperimentConfiguration
 
 def load_palxfel_config(file: str) -> ExperimentConfiguration:
     return load_config(ExperimentConfiguration, file)

@@ -11,8 +11,8 @@ Classes:
 
 import os
 
-from basic_config.configclasses import configclass
-from palxfel.enums import *
+from ..basic_config.configclasses import configclass
+from ..palxfel.enums import *
 
 @configclass
 class ConfigurationParameters:
