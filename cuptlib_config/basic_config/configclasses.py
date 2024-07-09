@@ -73,9 +73,9 @@ def configclass(cls):
 
     def __init__(self, *args, **kwargs):
         
-        merged_args = dict(**param_defaults, **dict(zip(all_params, args)), **kwargs)
+        merged_args = param_defaults.copy()
+        merged_args.update(dict(**dict(zip(all_params, args)), **kwargs))
         
-        # Set attributes
         for name in all_params:
             if name in merged_args:
                 setattr(self, name, merged_args[name])
@@ -123,8 +123,13 @@ def configclass(cls):
                 attr = getattr(instance, name)
 
                 if hasattr(attr, 'to_config_dict') and callable(getattr(attr, 'to_config_dict')):
-                    # Recursively convert nested objects
-                    setattr(instance, name, attr.dict_to_object(value))
+                    # Check if this is the deepest class with to_config_dict
+                    if isinstance(value, dict) and not any(hasattr(v, 'to_config_dict') for v in value.values() if isinstance(v, object)):
+                        # This is the deepest class, create it using class(name=value)
+                        setattr(instance, name, attr.__class__(**value))
+                    else:
+                        # Recursively convert nested objects
+                        setattr(instance, name, attr.__class__.dict_to_object(value))
                 elif callable(attr) and hasattr(attr, "setter"):
                     # If it's a setter method, call it with the corresponding value
                     attr(value)
