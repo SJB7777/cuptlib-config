@@ -86,6 +86,7 @@ class Hertz(Enum):
 
     DO NOT MODIFY THIS CLASS.
     """
+    ZERO = auto()
     TEN = auto()
     FIFTEEN = auto()
     TWENTY = auto()
@@ -93,7 +94,9 @@ class Hertz(Enum):
     SIXTY = auto()
 
     def __str__(self):
-        if self == Hertz.TEN:
+        if self == Hertz.ZERO:
+            return '0HZ'
+        elif self == Hertz.TEN:
             return '10HZ'
         elif self == Hertz.FIFTEEN:
             return '15HZ'
