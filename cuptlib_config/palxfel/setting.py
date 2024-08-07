@@ -45,7 +45,7 @@ class ConfigurationParameters:
     def __post_init__(self) -> None:
         # h * c / e / self.beam_energy / 1e-10 
         # Wavelength of Xray in Angstrom.
-        self.wavelength =  12398.419843320025 / self.beam_energy 
+        self.wavelength =  12.398419843320025 / self.beam_energy 
 
 
 @configclass
